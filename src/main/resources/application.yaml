@@ -1,0 +1,6 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_nBfjKjciN
