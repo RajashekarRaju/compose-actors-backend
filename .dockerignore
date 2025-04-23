@@ -1,0 +1,11 @@
+# Ignore Gradle caches and build output on host
+.gradle/
+build/
+**/build/
+out/
+
+# VCS & IDE files
+.git/
+.gitignore
+.idea/
+*.iml
