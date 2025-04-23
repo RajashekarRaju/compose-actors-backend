@@ -7,6 +7,7 @@ WORKDIR /workspace
 # copy only Gradle wrapper & build files first (enables Docker cache)
 COPY gradle gradle
 COPY gradlew .
+RUN chmod +x gradlew
 COPY build.gradle.kts settings.gradle.kts ./
 
 # Pre-download dependencies
