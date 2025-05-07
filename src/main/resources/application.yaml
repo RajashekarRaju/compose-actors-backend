@@ -1,6 +1,14 @@
 spring:
+  config:
+    import: "optional:file:env.properties"
+    
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_nBfjKjciN
+          issuer-uri: ${COGNITO_ISSUER_URI}
+
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+      database: ${MONGO_DATABASE}

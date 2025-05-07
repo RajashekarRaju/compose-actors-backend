@@ -1,4 +1,4 @@
-package com.developersbreach.composeactors.controller
+package com.developersbreach.composeactors.profile.web
 
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,6 +17,6 @@ class ProfileController {
         jwtAuthenticationToken: JwtAuthenticationToken
     ): String {
         val username = jwtAuthenticationToken.token.claims["username"]
-        return "Login successful"
+        return "Login successful for user $username"
     }
 }
