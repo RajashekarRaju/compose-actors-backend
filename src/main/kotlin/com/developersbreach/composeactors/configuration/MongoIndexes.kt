@@ -1,6 +1,6 @@
 package com.developersbreach.composeactors.configuration
 
-import com.developersbreach.composeactors.watchlist.data.WatchlistMovieDocument
+import com.developersbreach.composeactors.watchlistMovie.data.MovieWatchlistDocument
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.Sort
@@ -18,7 +18,7 @@ class MongoIndexes(
             .unique()
 
         template
-            .indexOps(WatchlistMovieDocument::class.java)
+            .indexOps(MovieWatchlistDocument::class.java)
             .ensureIndex(index)
     }
 }

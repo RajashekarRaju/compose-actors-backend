@@ -1,8 +1,8 @@
-package com.developersbreach.composeactors.watchlist.data
+package com.developersbreach.composeactors.watchlistMovie.data
 
-import com.developersbreach.composeactors.watchlist.dto.MovieDto
+import com.developersbreach.composeactors.watchlistMovie.dto.MovieDto
 
-fun MovieDto.toDocument(userId: String) = WatchlistMovieDocument(
+fun MovieDto.toDocument(userId: String) = MovieWatchlistDocument(
     id = "$userId|$movieId",
     userId = userId,
     movieId = movieId,
@@ -11,7 +11,7 @@ fun MovieDto.toDocument(userId: String) = WatchlistMovieDocument(
     movieBannerUrl = movieBannerUrl
 )
 
-fun WatchlistMovieDocument.toDto() = MovieDto(
+fun MovieWatchlistDocument.toDto() = MovieDto(
     movieId = movieId,
     movieName = movieName,
     moviePosterUrl = moviePosterUrl,
