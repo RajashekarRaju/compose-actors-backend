@@ -1,9 +1,9 @@
-package com.developersbreach.composeactors.watchlist.web
+package com.developersbreach.composeactors.watchlistMovie.web
 
 import com.developersbreach.composeactors.security.CurrentUserId
-import com.developersbreach.composeactors.watchlist.data.WatchlistMovieDocument
-import com.developersbreach.composeactors.watchlist.dto.MovieDto
-import com.developersbreach.composeactors.watchlist.service.WatchlistService
+import com.developersbreach.composeactors.watchlistMovie.data.MovieWatchlistDocument
+import com.developersbreach.composeactors.watchlistMovie.dto.MovieDto
+import com.developersbreach.composeactors.watchlistMovie.service.MovieWatchlistService
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/watchlist")
+@RequestMapping("/watchlist/movies")
 class MovieWatchlistController(
-    private val service: WatchlistService,
+    private val service: MovieWatchlistService,
     private val currentUserId: CurrentUserId
 ) {
     @GetMapping
@@ -30,7 +30,7 @@ class MovieWatchlistController(
     fun upsertMovie(
         token: JwtAuthenticationToken,
         @RequestBody dto: MovieDto
-    ): WatchlistMovieDocument {
+    ): MovieWatchlistDocument {
         return service.addOrUpdate(currentUserId(token), dto)
     }
 

@@ -1,12 +1,12 @@
-package com.developersbreach.composeactors.watchlist.data
+package com.developersbreach.composeactors.watchlistMovie.data
 
 import org.springframework.data.mongodb.repository.MongoRepository
 
-interface WatchlistRepository : MongoRepository<WatchlistMovieDocument, String> {
+interface MovieWatchlistRepository : MongoRepository<MovieWatchlistDocument, String> {
 
     fun findAllByUserId(
         userId: String
-    ): List<WatchlistMovieDocument>
+    ): List<MovieWatchlistDocument>
 
     fun deleteByUserIdAndMovieId(
         userId: String,

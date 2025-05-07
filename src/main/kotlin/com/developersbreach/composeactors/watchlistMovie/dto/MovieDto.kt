@@ -1,4 +1,4 @@
-package com.developersbreach.composeactors.watchlist.dto
+package com.developersbreach.composeactors.watchlistMovie.dto
 
 data class MovieDto(
     val movieId: Int,
