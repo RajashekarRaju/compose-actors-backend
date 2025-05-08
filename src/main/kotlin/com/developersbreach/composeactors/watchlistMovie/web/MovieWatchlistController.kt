@@ -1,17 +1,13 @@
 package com.developersbreach.composeactors.watchlistMovie.web
 
+import com.developersbreach.composeactors.common.PagedResponse
 import com.developersbreach.composeactors.security.CurrentUserId
 import com.developersbreach.composeactors.watchlistMovie.data.MovieWatchlistDocument
 import com.developersbreach.composeactors.watchlistMovie.dto.MovieDto
 import com.developersbreach.composeactors.watchlistMovie.service.MovieWatchlistService
+import org.springframework.data.domain.PageRequest
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/watchlist/movies")
@@ -21,9 +17,14 @@ class MovieWatchlistController(
 ) {
     @GetMapping
     fun getWatchlist(
-        token: JwtAuthenticationToken
-    ): List<MovieDto> {
-        return service.list(currentUserId(token))
+        token: JwtAuthenticationToken,
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int
+    ): PagedResponse<MovieDto> {
+        return service.listPaged(
+            userId = currentUserId(token = token),
+            pageable = PageRequest.of(page, size)
+        )
     }
 
     @PostMapping
