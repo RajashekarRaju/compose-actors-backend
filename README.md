@@ -4,14 +4,14 @@
 
 ## Overview
 
-| Layer    | Implementation                                                   |
-| -------- |------------------------------------------------------------------|
-| Language | Kotlin                                                           |
-| Framework | Spring boot (REST, Security, Data MongoDB)                       |
-| Database | MongoDB Atlas                                                    |
-| Auth/IAM | AWS Cognito • JWT access‑tokens (OAuth 2 Resource Server)        |
-| Hosting  | Render.com • Docker container image        |
-| CI       | Render continuous deploy (Docker build) • local`./gradlew build` |
+| Layer      | Implementation                                                      |
+| ---------- | ------------------------------------------------------------------- |
+| Language   | Kotlin                                                              |
+| Framework  | Spring Boot (REST, Security, Data MongoDB)                          |
+| Database   | MongoDB Atlas                                                       |
+| Auth/IAM   | AWS Cognito • JWT access-tokens (OAuth 2 Resource Server)           |
+| Hosting    | Google Cloud Run • Serverless containers (managed, autoscaling)     |
+| CI         | GitHub Actions for tests • Cloud Build trigger for deploy          |
 
 ---
 
@@ -30,29 +30,30 @@
 
 ## Running locally
 
-```
+```bash
 # 1. clone & set vars
 cp env.properties.sample env.properties
 
 # 2. bootRun (hot‑reload)
 ./gradlew bootRun
 
-# 3. open http://localhost:8080/actuator/health
+# 3. verify
+curl http://localhost:8080/public/health
 ```
 
-If you prefer Docker:
+## Deploying to Google Cloud Run
 
-```
-docker build -t composeactors .
-docker run -p 8080:8080 --env-file env.properties composeactors
-```
+1. **Containerize via Cloud Build Trigger**
+   Your trigger will build and push `gcr.io/YOUR_PROJECT/compose-actors-backend`.
 
-## Deploying to Render
+2. **Environment Variables in Cloud Run**
+   In the Cloud Run console, under **Variables & Secrets**, add:
 
-1. Create a new Web Service → Dockerfile on Render.
-2. Add Environment - Secret Files or Env Variables for the three keys.
-3. Allow your Render outbound IPs in MongoDB Atlas IP Access List.
-4. Trigger the first deploy - Render builds the Dockerfile & exposes port `8080` automatically.
+    * `COGNITO_ISSUER_URI`
+    * `MONGO_URI`
+    * `MONGO_DATABASE`
+
+3. **Always-warm instance** - To eliminate cold starts, edit the service’s **Autoscaling** and set **Min instances** = 1.
 
 ---
 

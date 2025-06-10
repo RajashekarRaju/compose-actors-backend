@@ -28,10 +28,8 @@ WORKDIR /app
 # copy the JAR from builder stage
 COPY --from=builder /workspace/build/libs/*.jar app.jar
 
-# Use PORT provided by Render (falls back to 8080 locally)
+# Cloud Run provides $PORT; Spring Boot binds to it by default (8080)
 ENV PORT 8080
 EXPOSE 8080
-
-HEALTHCHECK CMD curl --fail http://localhost:${PORT}/public || exit 1
 
 ENTRYPOINT ["java","-jar","app.jar"]

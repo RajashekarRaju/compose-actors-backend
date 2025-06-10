@@ -38,15 +38,4 @@ jobs:
           name: test-report
           path: build/reports/tests/test/
 
-      - name: Deploy to Render
-        if: github.ref == 'refs/heads/master'
-        uses: JorgeLNJunior/render-deploy@v1.4.5
-        with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          clear_cache: true
-          wait_deploy: true
-          github_deployment: true
-          deployment_environment: production
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
+      # Cloud Build trigger on GCP will pick up every push to master
