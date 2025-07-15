@@ -16,8 +16,10 @@ class SecurityConfiguration {
         httpSecurity: HttpSecurity
     ): SecurityFilterChain {
         return httpSecurity.authorizeHttpRequests {
-            it.requestMatchers("/public")
+            it.requestMatchers("/public/**")
                 .permitAll()
+                .requestMatchers("/api/v1/**")
+                .authenticated()
                 .anyRequest()
                 .authenticated()
         }.oauth2ResourceServer {

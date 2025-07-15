@@ -17,7 +17,7 @@ class ProfileController {
         return mapOf("status" to "UP")
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/api/v1/profile")
     fun profile(
         jwtAuthenticationToken: JwtAuthenticationToken
     ): String {
