@@ -1,6 +1,16 @@
 # API reference
 
-All endpoints are under `/watchlist` and secured with Bearer JWT.
+## Public Endpoints
+
+These endpoints are accessible without authentication.
+
+| Method | Path            | Purpose                                |
+| ------ | --------------- | -------------------------------------- |
+| `GET`  | `/public/health` | Health check endpoint, returns status |
+
+## Authenticated Endpoints
+
+All endpoints under `/watchlist` are secured with Bearer JWT.
 
 | Method                | Path                          | Purpose                                |
 | --------------------- | ----------------------------- | -------------------------------------- |

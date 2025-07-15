@@ -2,7 +2,9 @@ package com.developersbreach.composeactors.watchlistMovie.service
 
 import com.developersbreach.composeactors.watchlistMovie.data.MovieWatchlistDocument
 import com.developersbreach.composeactors.watchlistMovie.data.MovieWatchlistRepository
+import com.developersbreach.composeactors.watchlistMovie.dto.MovieDto
 import io.mockk.every
+import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
@@ -45,4 +47,48 @@ class MovieWatchlistServiceTest {
         }
     }
 
+    @Test
+    fun `addOrUpdate delegates to repository and returns saved document`() {
+        val movieDto = MovieDto(
+            movieId = 3,
+            movieName = "Life",
+            moviePosterUrl = null,
+            movieBannerUrl = null
+        )
+
+        val document = MovieWatchlistDocument(
+            id = "${userId}_${movieDto.movieId}",
+            userId = userId,
+            movieId = movieDto.movieId,
+            movieName = movieDto.movieName,
+            moviePosterUrl = movieDto.moviePosterUrl,
+            movieBannerUrl = movieDto.movieBannerUrl
+        )
+
+        every {
+            repository.save(any())
+        } returns document
+
+        val result = service.addOrUpdate(userId, movieDto)
+
+        assertThat(result).isEqualTo(document)
+        verify(exactly = 1) {
+            repository.save(any())
+        }
+    }
+
+    @Test
+    fun `remove delegates to repository`() {
+        val movieId = 3
+
+        justRun {
+            repository.deleteByUserIdAndMovieId(userId, movieId)
+        }
+
+        service.remove(userId, movieId)
+
+        verify(exactly = 1) {
+            repository.deleteByUserIdAndMovieId(userId, movieId)
+        }
+    }
 }
