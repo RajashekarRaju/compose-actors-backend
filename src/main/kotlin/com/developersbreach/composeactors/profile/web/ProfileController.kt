@@ -12,7 +12,12 @@ class ProfileController {
         return "Test for public api"
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/public/health")
+    fun health(): Map<String, String> {
+        return mapOf("status" to "UP")
+    }
+
+    @GetMapping("/api/v1/profile")
     fun profile(
         jwtAuthenticationToken: JwtAuthenticationToken
     ): String {

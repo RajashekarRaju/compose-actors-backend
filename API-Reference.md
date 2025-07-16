@@ -1,13 +1,24 @@
 # API reference
 
-All endpoints are under `/watchlist` and secured with Bearer JWT.
+## Public Endpoints
 
-| Method                | Path                          | Purpose                                |
-| --------------------- | ----------------------------- | -------------------------------------- |
-| `GET`                 | `/watchlist/movies`           | Paged list ⇒ `?page=1&size=20`         |
-| `POST`                | `/watchlist/movies`           | Add/update one movie (send `MovieDto`) |
-| `DELETE`              | `/watchlist/movies/{movieId}` | Remove a movie                         |
-| `GET`/`POST`/`DELETE` | `/watchlist/people`           | Same trio for person watch‑list        |
+These endpoints are accessible without authentication.
+
+| Method | Path            | Purpose                                |
+| ------ | --------------- | -------------------------------------- |
+| `GET`  | `/public/health` | Health check endpoint, returns status |
+
+## Authenticated Endpoints (v1)
+
+All endpoints under `/api/v1` are secured with Bearer JWT.
+
+| Method                | Path                              | Purpose                                |
+| --------------------- | --------------------------------- | -------------------------------------- |
+| `GET`                 | `/api/v1/watchlist/movies`        | Paged list ⇒ `?page=1&size=20`         |
+| `POST`                | `/api/v1/watchlist/movies`        | Add/update one movie (send `MovieDto`) |
+| `DELETE`              | `/api/v1/watchlist/movies/{movieId}` | Remove a movie                     |
+| `GET`/`POST`/`DELETE` | `/api/v1/watchlist/people`        | Same trio for person watch‑list        |
+| `GET`                 | `/api/v1/profile`                 | Get user profile information           |
 
 **Paged response structure**
 

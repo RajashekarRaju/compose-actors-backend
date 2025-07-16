@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/watchlist/movies")
+@RequestMapping("/api/v1/watchlist/movies")
 class MovieWatchlistController(
     private val service: MovieWatchlistService,
     private val currentUserId: CurrentUserId
